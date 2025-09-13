@@ -56,49 +56,51 @@
 
   <!-- User Table Start -->
 
-  <table class="table table-striped" *ngIf="showTable == true">
-    <thead>
-      <tr>
-        <th scope="col">S.N</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Address</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="isLoading == false">
-      <tr
-        *ngFor="let user of pagedList; let i = index"
-        (click)="goToUserDetails(user?.id)"
-        style="cursor: pointer"
-      >
-        <td scope="row">{{ (page - 1) * pageSize + i + 1 }}</td>
-        <td>{{ user?.name || "-" }}</td>
-        <td>{{ user?.email || "-" }}</td>
-        <td>{{ user?.phone || "-" }}</td>
-        <td>{{ user?.address?.city || "-" }}</td>
-      </tr>
-    </tbody>
+  <div class="w-full overflow-x-auto">
+    <table class="table table-striped" *ngIf="showTable == true">
+      <thead>
+        <tr>
+          <th scope="col">S.N</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Address</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="isLoading == false">
+        <tr
+          *ngFor="let user of pagedList; let i = index"
+          (click)="goToUserDetails(user?.id)"
+          style="cursor: pointer"
+        >
+          <td scope="row">{{ (page - 1) * pageSize + i + 1 }}</td>
+          <td>{{ user?.name || "-" }}</td>
+          <td>{{ user?.email || "-" }}</td>
+          <td>{{ user?.phone || "-" }}</td>
+          <td>{{ user?.address?.city || "-" }}</td>
+        </tr>
+      </tbody>
 
-    <tbody *ngIf="isLoading == true">
-      <tr>
-        <td colspan="5">
-          <div
-            *ngIf="isLoading == true"
-            style="
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              font-weight: 600;
-              font-size: 20px;
-            "
-          >
-            Loading...
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody *ngIf="isLoading == true">
+        <tr>
+          <td colspan="5">
+            <div
+              *ngIf="isLoading == true"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 600;
+                font-size: 20px;
+              "
+            >
+              Loading...
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <!-- User Table End -->
 
   <!-- User Card Start -->
