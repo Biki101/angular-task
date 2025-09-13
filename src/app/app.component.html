@@ -1,3 +1,4 @@
+<!-- Error Message Start -->
 <div
   *ngIf="errorMessage"
   class="alert alert-danger alert-dismissible fade show"
@@ -12,3 +13,25 @@
     aria-label="Close"
   ></button>
 </div>
+<!-- Error Message End -->
+
+<!-- User Table Start -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">S.N</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userList; let i = index">
+      <td scope="row">{{ i + 1 }}</td>
+      <td>{{ user?.name || "-" }}</td>
+      <td>{{ user?.email || "-" }}</td>
+      <td>{{ user?.phone || "-" }}</td>
+    </tr>
+  </tbody>
+</table>
+<!-- User Table End -->
