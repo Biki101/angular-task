@@ -35,6 +35,12 @@ export class UserListComponent {
     }
 
     this.getUserList();
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      // Get a specific query parameter
+      this.searchQuery = params['search'];
+      this.filterUserList();
+    });
   }
 
   getUserList() {
@@ -45,6 +51,10 @@ export class UserListComponent {
         this.filteredUserList = this.userList;
         this.pagedItems();
         this.isLoading = false;
+
+        if (this.searchQuery) {
+          this.filterUserList();
+        }
       },
       error: (err) => {
         this.errorMessage = `Failed to load user list. Please try again later. Error: ${err?.message}`;
