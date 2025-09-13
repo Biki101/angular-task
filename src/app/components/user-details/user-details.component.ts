@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +12,11 @@ export class UserDetailsComponent {
   userId: string | null = null;
   user: any;
 
-  constructor(private route: ActivatedRoute, private apiService: UserService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: UserService,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -26,5 +31,9 @@ export class UserDetailsComponent {
     this.apiService.getUserDetailsById(id).subscribe((data) => {
       this.user = data;
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
