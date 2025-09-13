@@ -48,22 +48,14 @@
     </thead>
     <tbody *ngIf="isLoading == false">
       <tr *ngFor="let user of pagedList; let i = index">
-        <td scope="row">{{ i + 1 }}</td>
+        <td scope="row">{{ (page - 1) * pageSize + i + 1 }}</td>
         <td>{{ user?.name || "-" }}</td>
         <td>{{ user?.email || "-" }}</td>
         <td>{{ user?.phone || "-" }}</td>
         <td>{{ user?.address?.city || "-" }}</td>
       </tr>
     </tbody>
-    <tbody *ngIf="isLoading == false">
-      <tr *ngFor="let user of pagedList; let i = index">
-        <td scope="row">{{ i + 1 }}</td>
-        <td>{{ user?.name || "-" }}</td>
-        <td>{{ user?.email || "-" }}</td>
-        <td>{{ user?.phone || "-" }}</td>
-        <td>{{ user?.address?.city || "-" }}</td>
-      </tr>
-    </tbody>
+
     <tbody *ngIf="isLoading == true">
       <tr>
         <td colspan="5">

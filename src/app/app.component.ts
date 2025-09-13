@@ -37,7 +37,7 @@ export class AppComponent {
         this.isLoading = false;
       },
       error: (err) => {
-        this.errorMessage = 'Failed to load user list. Please try again later.';
+        this.errorMessage = `Failed to load user list. Please try again later. Error: ${err?.message}`;
         this.isLoading = false;
       },
       complete: () => {
