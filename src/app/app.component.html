@@ -23,15 +23,26 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
+      <th scope="col">Address</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of userList; let i = index">
+    <tr *ngFor="let user of pagedList; let i = index">
       <td scope="row">{{ i + 1 }}</td>
       <td>{{ user?.name || "-" }}</td>
       <td>{{ user?.email || "-" }}</td>
       <td>{{ user?.phone || "-" }}</td>
+      <td>{{ user?.address?.city || "-" }}</td>
     </tr>
   </tbody>
 </table>
+<div style="display: flex; justify-content: end; margin-right: 12px">
+  <ngb-pagination
+    [(page)]="page"
+    (pageChange)="onPageChange($event)"
+    [pageSize]="pageSize"
+    [collectionSize]="userList.length"
+  />
+</div>
+
 <!-- User Table End -->
