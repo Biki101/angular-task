@@ -1,48 +1,96 @@
-<!-- Error Message Start -->
-<div
-  *ngIf="errorMessage"
-  class="alert alert-danger alert-dismissible fade show"
-  role="alert"
->
-  {{ errorMessage }}
-  <button
-    (click)="errorMessage = ''"
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
-</div>
-<!-- Error Message End -->
+<div style="padding: 12px">
+  <!-- Error Message Start -->
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    {{ errorMessage }}
+    <button
+      (click)="errorMessage = ''"
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  <!-- Error Message End -->
 
-<!-- User Table Start -->
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">S.N</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of pagedList; let i = index">
-      <td scope="row">{{ i + 1 }}</td>
-      <td>{{ user?.name || "-" }}</td>
-      <td>{{ user?.email || "-" }}</td>
-      <td>{{ user?.phone || "-" }}</td>
-      <td>{{ user?.address?.city || "-" }}</td>
-    </tr>
-  </tbody>
-</table>
-<div style="display: flex; justify-content: end; margin-right: 12px">
-  <ngb-pagination
-    [(page)]="page"
-    (pageChange)="onPageChange($event)"
-    [pageSize]="pageSize"
-    [collectionSize]="userList.length"
-  />
-</div>
+  <!-- User Table Start -->
 
-<!-- User Table End -->
+  <div class="mb-3 row">
+    <label
+      for="table-complete-search"
+      class="col-xs-3 col-sm-auto col-form-label"
+      >Search by name or email:</label
+    >
+    <div class="col-xs-3 col-sm-auto">
+      <input
+        id="table-complete-search"
+        type="text"
+        class="form-control"
+        name="searchTerm"
+        (keyup)="filterUserList()"
+        [(ngModel)]="searchQuery"
+      />
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">S.N</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="isLoading == false">
+      <tr *ngFor="let user of pagedList; let i = index">
+        <td scope="row">{{ i + 1 }}</td>
+        <td>{{ user?.name || "-" }}</td>
+        <td>{{ user?.email || "-" }}</td>
+        <td>{{ user?.phone || "-" }}</td>
+        <td>{{ user?.address?.city || "-" }}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isLoading == false">
+      <tr *ngFor="let user of pagedList; let i = index">
+        <td scope="row">{{ i + 1 }}</td>
+        <td>{{ user?.name || "-" }}</td>
+        <td>{{ user?.email || "-" }}</td>
+        <td>{{ user?.phone || "-" }}</td>
+        <td>{{ user?.address?.city || "-" }}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isLoading == true">
+      <tr>
+        <td colspan="5">
+          <div
+            *ngIf="isLoading == true"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-weight: 600;
+              font-size: 20px;
+            "
+          >
+            Loading...
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="display: flex; justify-content: end; margin-right: 12px">
+    <ngb-pagination
+      [(page)]="page"
+      (pageChange)="onPageChange($event)"
+      [pageSize]="pageSize"
+      [collectionSize]="userList.length"
+    />
+  </div>
+
+  <!-- User Table End -->
+</div>
