@@ -16,27 +16,47 @@
   </div>
   <!-- Error Message End -->
 
-  <!-- User Table Start -->
+  <div style="display: flex; gap: 12px">
+    <div class="mb-3 row">
+      <label
+        for="table-complete-search"
+        class="col-xs-3 col-sm-auto col-form-label"
+        >Search by name or email:</label
+      >
+      <div class="col-xs-3 col-sm-auto">
+        <input
+          id="table-complete-search"
+          type="text"
+          class="form-control"
+          name="searchTerm"
+          (keyup)="filterUserList()"
+          [(ngModel)]="searchQuery"
+        />
+      </div>
+    </div>
 
-  <div class="mb-3 row">
-    <label
-      for="table-complete-search"
-      class="col-xs-3 col-sm-auto col-form-label"
-      >Search by name or email:</label
-    >
-    <div class="col-xs-3 col-sm-auto">
-      <input
-        id="table-complete-search"
-        type="text"
-        class="form-control"
-        name="searchTerm"
-        (keyup)="filterUserList()"
-        [(ngModel)]="searchQuery"
-      />
+    <div class="d-flex justify-content-end mb-3 gap-1">
+      <!-- Toggle buttons to switch views -->
+      <button
+        class="btn"
+        [ngClass]="{ 'btn-primary': !showTable, 'btn-secondary': showTable }"
+        (click)="toggleView(true)"
+      >
+        Card View
+      </button>
+      <button
+        class="btn ml-2"
+        [ngClass]="{ 'btn-primary': showTable, 'btn-secondary': !showTable }"
+        (click)="toggleView(false)"
+      >
+        Table View
+      </button>
     </div>
   </div>
 
-  <table class="table table-striped">
+  <!-- User Table Start -->
+
+  <table class="table table-striped" *ngIf="showTable == true">
     <thead>
       <tr>
         <th scope="col">S.N</th>
@@ -75,19 +95,10 @@
       </tr>
     </tbody>
   </table>
-  <div style="display: flex; justify-content: end; margin-right: 12px">
-    <ngb-pagination
-      [(page)]="page"
-      (pageChange)="onPageChange($event)"
-      [pageSize]="pageSize"
-      [collectionSize]="userList.length"
-    />
-  </div>
-
   <!-- User Table End -->
 
-  <!-- User Card -->
-  <div>
+  <!-- User Card Start -->
+  <div *ngIf="showTable == false">
     <div class="container mt-4">
       <div class="row">
         <div class="col-md-4" *ngFor="let user of pagedList">
@@ -112,5 +123,15 @@
         </div>
       </div>
     </div>
+  </div>
+  <!-- User Card End -->
+
+  <div style="display: flex; justify-content: end; margin-right: 12px">
+    <ngb-pagination
+      [(page)]="page"
+      (pageChange)="onPageChange($event)"
+      [pageSize]="pageSize"
+      [collectionSize]="userList.length"
+    />
   </div>
 </div>

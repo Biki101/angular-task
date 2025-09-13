@@ -16,6 +16,7 @@ export class AppComponent {
   page = 1;
   pageSize = 5;
   searchQuery = '';
+  showTable = true;
 
   constructor(
     private apiService: UserService,
@@ -24,6 +25,15 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
+    // getViewSetting
+    const format = sessionStorage.getItem('viewFormat');
+
+    if (format == null || format == 'table') {
+      this.showTable = true;
+    } else {
+      this.showTable = false;
+    }
+
     this.getUserList();
   }
 
@@ -75,5 +85,10 @@ export class AppComponent {
   onPageChange(event: number) {
     this.page = event;
     this.pagedItems();
+  }
+
+  toggleView(view: boolean) {
+    this.showTable = !view;
+    sessionStorage.setItem('viewFormat', this.showTable ? 'table' : 'card');
   }
 }
