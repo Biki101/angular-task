@@ -1,0 +1,70 @@
+<div class="container mt-5" *ngIf="user != null">
+  <div class="row justify-content-center">
+    <!-- User Detail Card -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>{{ user?.name }}</h3>
+          <p class="text-muted">{{ user?.username }}</p>
+        </div>
+        <div class="card-body">
+          <!-- Profile Info -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>Email:</strong> {{ user?.email }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Phone:</strong> {{ user?.phone }}</p>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p>
+                <strong>Website:</strong>
+                <a href="https://{{ user?.website }}" target="_blank">{{
+                  user?.website
+                }}</a>
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Company:</strong> {{ user?.company?.name }}</p>
+            </div>
+          </div>
+
+          <!-- Address Info -->
+          <div class="mb-3">
+            <p><strong>Address:</strong></p>
+            <ul>
+              <li><strong>Street:</strong> {{ user?.address?.street }}</li>
+              <li><strong>Suite:</strong> {{ user?.address?.suite }}</li>
+              <li><strong>City:</strong> {{ user?.address?.city }}</li>
+              <li><strong>Zip Code:</strong> {{ user?.address?.zipcode }}</li>
+            </ul>
+          </div>
+
+          <!-- Geographical Info -->
+          <div class="mb-3">
+            <p><strong>Location:</strong></p>
+            <p>Latitude: {{ user?.address?.geo?.lat }}</p>
+            <p>Longitude: {{ user?.address?.geo?.lng }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="user == null"
+  style="
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 20px;
+  "
+>
+  Loading...
+</div>
